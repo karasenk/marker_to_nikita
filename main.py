@@ -51,8 +51,11 @@ while mainrun:
         screen.blit(markers[i].image, markers[i].coords)
         if markers[i].coords[1] <= -50 or markers[i].to_del:
             to_del.append(i)
+    a = 0
     for num in to_del:
-        del markers[num]
+        del markers[num - a]
+        a += 1
+
     score = fnt.render(str(himik.score), True, (255, 255, 255))
     screen.blit(score, (740, 0))
     screen.blit(himik.img, himik.coords)

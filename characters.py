@@ -4,6 +4,9 @@ import pygame
 from random import choice
 
 
+dirs = [-1, -0.75, -0.5, -0.25, 0, 0.25, 0.5, 0.75, 1]
+
+
 def load_image(name, colorkey=None):
     fullname = os.path.join('img', name)
     # если файл не существует, то выходим
@@ -46,15 +49,18 @@ class Nikita(Oc):
     def __init__(self, coords):
         super().__init__(coords)
         self.img = load_image('nikita.png')
-        self.dir = [choice([-1, 0, 1]), choice([-1, 0, 1])]
+        self.dir = [choice(dirs), choice(dirs)]
         self.speed = 0.3
         self.timer = 0
 
     def change_dir(self):
         if choice([1, 2]) % 2 == 0:
-            self.dir[0] = choice([-1, 0, 1])
+            self.dir[0] = choice(dirs)
         else:
-            self.dir[1] = choice([-1, 0, 1])
+            self.dir[1] = choice(dirs)
+        while self.dir[0] == 0 and self.dir[1] == 0:
+            self.dir[0] = choice(dirs)
+            self.dir[1] = choice(dirs)
 
     def move(self):
         x = round(self.coords[0] + self.dir[0] * self.speed, 1)
